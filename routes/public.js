@@ -1,12 +1,9 @@
 const express = require("express")
+const UserController = require("../controllers/UserController")
 
 const public = express.Router()
 
-public.get('/', (req, res) => {
-  res.json({title: `hello ${req.query.name}`})
-})
-public.post('/', (req, res) => {
-  res.json({title: `hello ${req.query.name}`})
-})
+// Route dari Controller
+public.post('/register', UserController.register)
 
 module.exports = public
