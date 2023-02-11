@@ -1,3 +1,3 @@
 # learn-express
 
-learn express.js
+learn backend nodejs using express with mongoodb
