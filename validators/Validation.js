@@ -182,6 +182,14 @@ class Validation {
           }
         }
 
+        //ketika memakai Database MongooDB ada email yang sama
+        if (validation.exists(fields[i].value) && fields[i].rules[j] == 'unique-email') {
+          let findData = await fields[i].model.findOne({ email: fields[i].value }).count()
+          if (findData > 0) {
+            messages.push(fields[i].value + ' was already exist')
+          }
+        }
+
         
         // ketika memakai Database Postgresql
         // if (validation.exists(fields[i].value) && fields[i].rules[j] == 'unique') {
