@@ -14,7 +14,7 @@ class UserValidator {
         key: "email",
         value: userData.email,
         model: model,
-        rules:  ['lowercase', 'trim', 'required', 'email']
+        rules:  ['lowercase', 'trim', 'required', 'email', 'unique-email']
       },
       {
         key: "password",
