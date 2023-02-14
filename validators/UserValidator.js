@@ -19,7 +19,7 @@ class UserValidator {
       {
         key: "password",
         value: userData.password,
-        rules: ['required']
+        rules: ['required', 'min_password']
       },
     ]
     return await Validator.check(rules)
