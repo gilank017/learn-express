@@ -1,22 +1,30 @@
 const Response = require("../helpers/Response")
 const UserValidator = require("../validators/UserValidator")
-const User = require("../models/User")
-const Bcrypt = require("../helpers/Bcrypt")
+const Users = require("../repositories/Users")
 
 class UserController {
   async register(req, res) {
     let response = new Response
     try {
       let requestData = await UserValidator.CheckRegister(req.body)
-      const body = {
-        name: requestData.name,
-        email: requestData.email,
-        password: await Bcrypt.encrypt(requestData.password)
-      }
-      const user = await User.create(body)
-      response.setData(user)
+      let createUser = await Users.insertNewUser(requestData)
+      response.setData(createUser)
       response.setMessage("User Created Successfully")
     } catch (error) {
+      response.setStatus(false)
+      response.setData(error)
+    }
+    res.json(response)
+  }
+
+  async login(req, res) {
+    let response = new Response
+    try {
+      let requestData = await UserValidator.CheckLogin(req.body)
+      let dataLogin = await Users.login(requestData)
+      response.setData(dataLogin)
+      response.setMessage("Login Successfully")
+    } catch(error) {
       response.setStatus(false)
       response.setData(error)
     }

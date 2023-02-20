@@ -2,7 +2,6 @@ class Response {
   constructor() {
     this.status = true
     this.message = {}
-    this.code = null
   }
 
   setStatus (status) {
