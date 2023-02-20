@@ -66,13 +66,13 @@ class Validator {
         }
 
         if (fields[i].rules[j] == 'min_password') {
-          if (fields[i].value.length < 8) {
+          if (fields[i].value.length < 8 && fields[i].value.length === undefined) {
             messages.push('Password minimum 8 characters')
           }
         }
 
         //ketika memakai Database MongooDB ada email yang sama
-        if (validation.exists(fields[i].value) && fields[i].rules[j] == 'unique-email') {
+        if (validation.exists(fields[i].value) && fields[i].rules[j] == 'email-exist') {
           let findData = await fields[i].model.findOne({ email: fields[i].value }).count()
           if (findData > 0) {
             messages.push(fields[i].value + ' was already exist')

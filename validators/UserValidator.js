@@ -14,12 +14,30 @@ class UserValidator {
         key: "email",
         value: userData.email,
         model: model,
-        rules:  ['lowercase', 'trim', 'required', 'email', 'unique-email']
+        rules:  ['lowercase', 'trim', 'required', 'email', 'email-exist']
       },
       {
         key: "password",
         value: userData.password,
-        rules: ['required', 'min_password']
+        rules: ['required']
+      },
+    ]
+    return await Validator.check(rules)
+  }
+
+  static async CheckLogin(userData) {
+    let model = await User
+    let rules = [
+      {
+        key: "email",
+        value: userData.email,
+        model: model,
+        rules:  ['lowercase', 'trim', 'required', 'email']
+      },
+      {
+        key: "password",
+        value: userData.password,
+        rules: ['required']
       },
     ]
     return await Validator.check(rules)
