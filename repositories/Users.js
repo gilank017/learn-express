@@ -1,4 +1,5 @@
 const User = require("../models/User")
+const Randomstring = require('randomstring')
 const Bcrypt = require("../helpers/Bcrypt")
 
 const Users = {
@@ -25,7 +26,15 @@ const Users = {
     if (response) {
       let validatePassword = await Bcrypt.check(user.password, response.password)
       if (validatePassword) {
-        return response
+        let token = Randomstring.generate() + Randomstring.generate() + Randomstring.generate()
+        response.token = token
+        const resData = await response.save()
+        return {
+          name: resData.name,
+          email: resData.email,
+          status: resData.status,
+          token: resData.token
+        }
       }
       throw {
         message: "Invalid Password"
