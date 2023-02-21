@@ -14,6 +14,9 @@ const userSchema = new user.Schema({
     type: String,
     required: true
   },
+  token: {
+    type: String
+  },
   status: {
     type: String,
     enum: ["active", "inactive"],

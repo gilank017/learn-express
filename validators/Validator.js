@@ -71,43 +71,12 @@ class Validator {
           }
         }
 
-        //ketika memakai Database MongooDB ada email yang sama
         if (validation.exists(fields[i].value) && fields[i].rules[j] == 'email-exist') {
           let findData = await fields[i].model.findOne({ email: fields[i].value }).count()
           if (findData > 0) {
             messages.push(fields[i].value + ' was already exist')
           }
         }
-
-        // ketika memakai Database Postgresql
-        // if (validation.exists(fields[i].value) && fields[i].rules[j] == 'unique') {
-        //   let findData = await fields[i].model.database.connection.query(`SELECT id FROM ${fields[i].model.table} WHERE ${fields[i].key} = $1`, [fields[i].value])
-        //   if (findData.rowCount > 0) {
-        //     messages.push(fields[i].value + ' was already exist')
-        //   }
-        // }
-
-        // if (validation.exists(fields[i].value) && messages.length == 0 && fields[i].rules[j] == 'ownership') {
-        //   let findData = await fields[i].model.database.connection.query(`
-        //     SELECT id 
-        //     FROM ${fields[i].model.table} 
-        //     WHERE ${fields[i].key} = $1 AND ${fields[i].ownership_key} = $2`, [fields[i].value, fields[i].ownership_value])
-        //   if (findData.rowCount == 0) {
-        //     messages.push(`Sorry, ${fields[i].key} = ${fields[i].value} is not your property`)
-        //   }
-        // }
-
-        // if (validation.exists(fields[i].value) && fields[i].rules[j] == 'unique_except') {
-        //   let findData = await fields[i].model.database.connection.query(
-        //     `SELECT id FROM ${fields[i].model.table} WHERE ${fields[i].key} = $1`
-        //     , [fields[i].value]
-        //   )
-        //   if (findData.rowCount > 0) {
-        //     if (findData.rows[0].id != fields[i].unique_except) {
-        //       messages.push(fields[i].value + ' was already exist')
-        //     }
-        //   }
-        // }
 
         if (validation.exists(fields[i].value) && fields[i].rules[j] == 'date') {
           if (!validator.isISO8601(fields[i].value)) {
@@ -147,7 +116,6 @@ class Validator {
         result[fields[i].key] = messages
       }
     }
-    // console.log(fields)
     if (error) {
         throw result
     } else {
