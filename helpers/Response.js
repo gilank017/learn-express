@@ -24,6 +24,13 @@ class Response {
   setCode (code) {
     this.code = code
   }
+
+  static unAuthorized () {
+    let response = new Response()
+    response.setStatus(false)
+    response.setMessage("Unauthorized access !")
+    return response
+  }
 }
 
 module.exports = Response
