@@ -1,11 +1,6 @@
 const Response = require("../helpers/Response")
 const UserValidator = require("../validators/UserValidator")
 const Users = require("../repositories/Users")
-const dotenv = require("dotenv")
-const url = require("url")
-
-
-const env = dotenv.config().parsed
 class UserController {
   async register(req, res) {
     let response = new Response
