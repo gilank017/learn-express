@@ -30,7 +30,7 @@ app.use("/", require("./routes/public"))
 
 // handle route error
 app.use(function (req, res, next) {
-  res.status(404).json({status: false, message: "Sorry, We don't know the endpoint target"})
+  res.status(404).json({status: false, message: "Sorry, We don't know the endpoint target bro"})
 })
 
 app.listen(env.APP_PORT, () => {
